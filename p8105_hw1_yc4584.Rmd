@@ -5,26 +5,37 @@ date: "2024-09-17"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+# Problem 1
+
+- now load the penguins dataset from the palmerpenguins package
+```{r load data}
+data("penguins", package = "palmerpenguins")
 ```
 
-## R Markdown
+This is a short discription for the dataset:
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+- the dataset includes following variables: `r names(penguins)`.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+  the dataset includes `r nrow(penguins)` rows and `r ncol(penguins)` columns.
 
-```{r cars}
-summary(cars)
+  the mean flipper length is `r mean(penguins$flipper_length_mm, na.rm = TRUE)`mm.
+  
+  
+This is the scatterplot of flipper_length_mm (y) vs bill_length_mm (x).
+```{r scatterplot, warning=FALSE, message=FALSE}
+library(ggplot2)
+scatterplot = ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) +
+  geom_point() +
+  labs(
+    title = "Scatterplot of Flipper and Bill Length",
+    x = "bill_length_mm",
+    y = "flipper_length_mm",
+    color = "species"
+  )
+print(scatterplot)
+ggsave(filename = "Scatterplot of Flipper and Bill Length.png", plot = scatterplot)
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
