@@ -36,6 +36,80 @@ print(scatterplot)
 ggsave(filename = "Scatterplot of Flipper and Bill Length.png", plot = scatterplot)
 ```
 
+# Problem 2
+
+- create data frame
+```{r create data frame}
+numeric_sample = rnorm(10)
+logical_vector = numeric_sample > 0
+char_vector = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j")
+fac_vector = factor(sample(c("low", "medium", "high"), 10, replace = TRUE))
+
+df = data.frame(
+  numeric_sample = numeric_sample,
+  logical_vector = logical_vector,
+  char_vector = char_vector,
+  fac_vector = fac_vector
+)
+print(df)
+```
+
+- take the mean of variables in the data frame
+```{r mean}
+library(tidyverse)
+```
+calculate the mean of numeric_sample
+```{r mean_numeric}
+mean_numeric = df %>%
+  pull(numeric_sample) %>%
+  mean()
+print(mean_numeric)
+```
+calculate the mean of logical_vector
+```{r mean_logical}
+mean_logical = df %>%
+  pull(logical_vector) %>%
+  mean()
+print(mean_logical)
+```
+calculate the mean of fac_vector
+```{r mean_fac, warning=FALSE, message=FALSE}
+mean_fac = df %>%
+  pull(fac_vector) %>%
+  mean()
+print(mean_fac)
+```
+calculate the mean of char_vector
+```{r mean_char, warning=FALSE, message=FALSE}
+mean_char = df %>%
+  pull(char_vector) %>%
+  mean()
+print(mean_char)
+```
+
+- the mean could be taken for numeric factor and logical vector, but not for factor vector and character vector. 
 
 
+- convert variables from one type to another
 
+- convert logical vector to numeric vector and take the mean
+```{r convert_logical, eval=FALSE}
+mean_convert_logical = df %>%
+  pull(logical_vector) %>% as.numeric() %>% mean()
+print(mean_convert_logical)
+```
+- convert factor vector to numeric vector and take the mean
+```{r convert_fac, eval=FALSE}
+mean_convert_fac = df %>%
+  pull(fac_vector) %>% as.numeric() %>% mean()
+print(mean_convert_fac)
+```
+- convert character vector to numeric vector and take the mean
+```{r convert_char, eval=FALSE}
+mean_convert_char = df %>%
+  pull(char_vector) %>% as.numeric() %>% mean()
+print(mean_convert_char)
+```
+
+- the mean could be taken for logical and factor vector after converting it to numeric vector, but not for character vector.
+It could partly translate the situation when I take the mean at the first time. The factor vector could been converted to numeric vector to take the mean and somehow reflect the extent. But the character vector could not be converted.
